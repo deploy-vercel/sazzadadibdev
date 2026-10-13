@@ -1,0 +1,33 @@
+# MD. Sazzad Hossain Adib — AI Engineer & Full-Stack Developer
+
+> AI Engineer in Dhaka, Bangladesh, building production LLM systems and full-stack AI applications. AI Research Engineer at Robot Bulls, building a real-time Talking Head system for natural, face-to-face voice conversations with AI. B.Sc. in Computer Science and Engineering, North South University (CGPA 3.83/4.00, Merit Scholarship — top 1% of class).
+
+## Pages
+
+- [Home](/): Hero, featured projects, engineering principles, journey, project scoper, contact.
+- [Projects](/projects): The complete archive — nine projects, each with a case study and its code on GitHub.
+- [Services](/services): AI-powered applications, full-stack web apps, machine learning & vision, data & analytics; the process; stack; FAQ; project scoper.
+- [About](/about): Story, how I work, receipts, education & focus.
+- [Contact](/contact): Email, LinkedIn, or GitHub.
+
+## Case studies
+
+- [AI Doctor Assistant](/case-study): Voice-powered medical consultation platform with AI-driven healthcare assistance.
+- [DeshiPlate AI](/case-study/deshiplate-ai): Bangladeshi food recognition (33 dishes, 89.76% accuracy) with nutrition assistance.
+- [InterviewBD](/case-study/interviewbd): Community-driven interview preparation platform.
+- [Daily English Vocabulary](/case-study/english-learning-platform): AI-generated daily vocabulary tests with progress tracking.
+- [SHOBDOTORI](/case-study/shobdotori): Regional-to-standard Bangla speech recognition.
+- [Educational Chatbot](/case-study/educational-chatbot): Offline, SLM-based RAG chatbot for educational assistance.
+- [Road Accident Analysis](/case-study/road-accident-analysis): ML system predicting patient status and injury severity.
+- [Movie Reservation Website](/case-study/movie-reservation): Agile-driven full-stack app built by a 5-member team.
+- [Viper Travel](/case-study/viper-travel): Travel booking platform with an SQL-based backend.
+
+## Stack
+
+Python, PyTorch, LLMs, RAG, LangChain, HuggingFace Transformers, TypeScript, Next.js, React.js, Node.js, FastAPI, PostgreSQL, Drizzle ORM, Docker, Vercel.
+
+## Contact
+
+- Email: sazzad.adib@northsouth.edu
+- GitHub: https://github.com/sazzadadib
+- LinkedIn: https://linkedin.com/in/sazzadadib
