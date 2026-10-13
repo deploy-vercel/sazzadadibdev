@@ -1,0 +1,480 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Colors are stored as RGB channels so they can be used both through
+   Tailwind utilities (text-ink/60) and raw CSS (rgb(var(--c-ink) / .6)).
+------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --c-surface: 250 250 248;
+  --c-surface-2: 244 244 241;
+  --c-surface-3: 237 237 234;
+  --c-ink: 18 18 20;
+  --c-accent: 4 120 87;
+  --c-accent-hover: 6 95 70;
+  --c-accent-fill: 16 185 129;
+  --c-on-accent: 0 0 0;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --mono-stack: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans-stack: var(--ff-manrope), var(--ff-bengali), system-ui, sans-serif;
+  --display-stack: var(--ff-syne), var(--ff-bengali), system-ui, sans-serif;
+  --ease-in-out-soft: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+
+  --cursor-default:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M5 3v20.5l5.4-5.1 3.7 8.6 3.7-1.6-3.6-8.5h7.1z' fill='%23121214' stroke='%23fafaf8' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E")
+      4 4,
+    auto;
+  --cursor-pointer:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M5 3v20.5l5.4-5.1 3.7 8.6 3.7-1.6-3.6-8.5h7.1z' fill='%23047857' stroke='%23fafaf8' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E")
+      4 4,
+    pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --c-surface: 5 5 5;
+    --c-surface-2: 10 10 10;
+    --c-surface-3: 13 13 13;
+    --c-ink: 255 255 255;
+    --c-accent: 52 211 153;
+    --c-accent-hover: 110 231 183;
+    --c-accent-fill: 52 211 153;
+    --c-on-accent: 0 0 0;
+
+    --cursor-default:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M5 3v20.5l5.4-5.1 3.7 8.6 3.7-1.6-3.6-8.5h7.1z' fill='%23ffffff' stroke='%23050505' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E")
+        4 4,
+      auto;
+    --cursor-pointer:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M5 3v20.5l5.4-5.1 3.7 8.6 3.7-1.6-3.6-8.5h7.1z' fill='%2334d399' stroke='%23050505' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E")
+        4 4,
+      pointer;
+  }
+}
+
+@theme inline {
+  --color-surface: rgb(var(--c-surface));
+  --color-surface-2: rgb(var(--c-surface-2));
+  --color-surface-3: rgb(var(--c-surface-3));
+  --color-ink: rgb(var(--c-ink));
+  --color-accent: rgb(var(--c-accent));
+  --color-accent-hover: rgb(var(--c-accent-hover));
+  --color-accent-fill: rgb(var(--c-accent-fill));
+  --color-on-accent: rgb(var(--c-on-accent));
+
+  --font-sans: var(--ff-manrope), var(--ff-bengali), system-ui, sans-serif;
+  --font-syne: var(--ff-syne), var(--ff-bengali), system-ui, sans-serif;
+  --font-bengali: var(--ff-bengali), system-ui, sans-serif;
+  --font-mono: var(--mono-stack);
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+@theme {
+  /* Letter-spacing scale used by the mono labels */
+  --tracking-tag: 0.16em;
+  --tracking-meta: 0.2em;
+  --tracking-eyebrow: 0.25em;
+  --tracking-label: 0.3em;
+  --tracking-spread: 0.4em;
+
+  /* Small technical type */
+  --text-micro: 10px;
+  --text-mini: 11px;
+  --text-body-sm: 14.5px;
+  --text-body: 15px;
+  --text-body-lg: 15.5px;
+
+  /* Fluid display type */
+  --text-page-thin: clamp(3.75rem, 8vw, 8.25rem);
+  --text-page-bold: clamp(4.375rem, 10vw, 10.625rem);
+  --text-section: clamp(2.5rem, 5vw, 5rem);
+  --text-section-sm: clamp(2.25rem, 4.2vw, 4.25rem);
+  --text-section-lead: clamp(1.625rem, 2.6vw, 2.5rem);
+  --text-outline-num: clamp(8rem, 30svh, 18rem);
+
+  --container-site: 1520px;
+  --container-page: 1400px;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee var(--marquee-duration, 32s) linear infinite;
+  --animate-hello-draw: hello-draw 1.55s var(--ease-in-out-soft) 0.15s forwards;
+  --animate-scan: scan 2.8s var(--ease-in-out-soft) infinite;
+}
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: rgb(var(--c-surface));
+    color: rgb(var(--c-ink));
+    font-family: var(--sans-stack);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scrollbar-width: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::selection {
+    background: rgb(var(--c-accent-fill) / 0.28);
+    color: rgb(var(--c-ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent-fill));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body {
+      cursor: var(--cursor-default);
+    }
+    a,
+    button,
+    [role="button"],
+    summary,
+    label[for],
+    .cursor-pointer {
+      cursor: var(--cursor-pointer);
+    }
+    .cursor-grab {
+      cursor: grab;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Reusable utilities
+------------------------------------------------------------------- */
+@utility gutter {
+  padding-inline: 1.5rem;
+  @media (width >= 48rem) {
+    padding-inline: 3rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 5rem;
+  }
+}
+
+/* Caps a headline at its inherited size (1em) or the width left inside the gutters,
+   whichever is smaller. --fit is the text's width in em (set by PageTitle). */
+@utility title-fit {
+  font-size: min(1em, calc((100vw - 4rem) / var(--fit, 1)));
+  @media (width >= 48rem) {
+    font-size: min(1em, calc((100vw - 7rem) / var(--fit, 1)));
+  }
+  @media (width >= 64rem) {
+    font-size: min(1em, calc((min(100vw, 95rem) - 11rem) / var(--fit, 1)));
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--mono-stack);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgb(var(--c-ink) / 0.4);
+}
+
+@utility mono-label {
+  font-family: var(--mono-stack);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+@utility display-thin {
+  font-family: var(--display-stack);
+  font-weight: 400;
+  font-style: italic;
+  color: rgb(var(--c-ink) / 0.7);
+}
+
+@utility display-bold {
+  font-family: var(--display-stack);
+  font-weight: 800;
+  color: rgb(var(--c-ink));
+}
+
+/* Outlined display type. Tune with --stroke-alpha / --stroke-width. */
+@utility text-stroke {
+  color: transparent;
+  -webkit-text-stroke: var(--stroke-width, 1px) rgb(var(--c-ink) / var(--stroke-alpha, 0.35));
+}
+
+/* White hairline grid: reads on dark surfaces, all but disappears on light ones. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--c-ink) / 0.3) rgb(var(--c-ink) / 0.05);
+}
+
+/* ------------------------------------------------------------------
+   Component-level CSS (things Tailwind can't express cleanly)
+------------------------------------------------------------------- */
+
+/* Seamless marquee: the track holds two identical copies and moves -50%. */
+.marquee-track {
+  animation: marquee var(--marquee-duration, 32s) linear infinite;
+  will-change: transform;
+}
+.marquee[data-direction="right"] .marquee-track {
+  animation-direction: reverse;
+}
+.marquee[data-pause-on-hover="true"]:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Glitch heading: two coloured slices flash for 450ms when triggered. */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .glitch[data-glitching] {
+    animation: glitch-jitter 0.45s steps(2, end) both;
+  }
+  .glitch[data-glitching]::before {
+    color: rgb(var(--c-accent));
+    animation: glitch-slice-a 0.45s step-end both;
+  }
+  .glitch[data-glitching]::after {
+    color: rgb(var(--c-ink) / 0.85);
+    animation: glitch-slice-b 0.45s step-end both;
+  }
+}
+
+/* Writing list hover rule */
+.entry-rule {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-out-expo);
+}
+.entry:hover .entry-rule,
+.entry:focus-visible .entry-rule {
+  transform: scaleX(1);
+}
+
+/* QR scan line */
+.qr-scan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.qr-scan::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 22%;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--qr-accent, #10b981) 30%, transparent));
+  border-bottom: 1.5px solid var(--qr-accent, #10b981);
+  animation: scan 2.8s var(--ease-in-out-soft) infinite;
+}
+
+/* Reveal primitives mark themselves with data-reveal. With reduced motion they
+   are always visible, even before hydration resolves the user preference. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Page transitions (React <ViewTransition default="page">)
+------------------------------------------------------------------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-old(.page) {
+  animation: page-out 260ms var(--ease-in-out-soft) both;
+}
+::view-transition-new(.page) {
+  animation: page-in 560ms var(--ease-out-expo) 80ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Keyframes
+------------------------------------------------------------------- */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes hello-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scan {
+  0% {
+    transform: translateY(-110%);
+  }
+  60%,
+  100% {
+    transform: translateY(460%);
+  }
+}
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes glitch-jitter {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(1px);
+  }
+  60% {
+    transform: translate(-1px);
+  }
+}
+@keyframes glitch-slice-a {
+  0% {
+    opacity: 1;
+    clip-path: inset(12% 0 76%);
+    transform: translate(-6px);
+  }
+  20% {
+    clip-path: inset(64% 0 8%);
+    transform: translate(5px);
+  }
+  40% {
+    clip-path: inset(30% 0 52%);
+    transform: translate(-4px);
+  }
+  60% {
+    clip-path: inset(80% 0 4%);
+    transform: translate(6px);
+  }
+  80% {
+    opacity: 1;
+    clip-path: inset(46% 0 38%);
+    transform: translate(-5px);
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(0 0 100%);
+    transform: none;
+  }
+}
+@keyframes glitch-slice-b {
+  0% {
+    opacity: 1;
+    clip-path: inset(70% 0 12%);
+    transform: translate(5px);
+  }
+  20% {
+    clip-path: inset(8% 0 80%);
+    transform: translate(-5px);
+  }
+  40% {
+    clip-path: inset(55% 0 30%);
+    transform: translate(4px);
+  }
+  60% {
+    clip-path: inset(20% 0 65%);
+    transform: translate(-6px);
+  }
+  80% {
+    opacity: 1;
+    clip-path: inset(85% 0 2%);
+    transform: translate(4px);
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(100% 0 0);
+    transform: none;
+  }
+}
+
+/* Bug hunt: overlay card entrance */
+.bh-pop {
+  animation: bh-pop 420ms var(--ease-out-expo) both;
+}
+@keyframes bh-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+}
